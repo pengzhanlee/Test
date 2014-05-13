@@ -1,0 +1,16 @@
+/bin/
+.classpath
+/.settings/
+/gen/
+.bin/
+/bin
+/debug.bat
+/package.bat
+PluginDemo.html
+*.log
+/target
+/doc
+*.ucls
+.gradle/
+build/
+.project
