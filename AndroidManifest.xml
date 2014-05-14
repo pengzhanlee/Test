@@ -26,7 +26,7 @@
             android:name=".cases.KeyboradActivity"
             android:label="@string/label_keyboard" />
         <activity
-            android:name=".cases.IphoneDialogActivity"
+            android:name="com.jsmix.android.test.cases.iphonedialog.IphoneDialogActivity"
             android:label="@string/label_iphone_dialog" />
     </application>
 

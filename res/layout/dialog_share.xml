@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/share_container"
-     >
+    android:orientation="vertical"
+    >
 
+    <View 
+        android:id="@+id/mask"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:background="@color/color_white"
         android:orientation="vertical" >
 
@@ -29,142 +35,26 @@
             android:layout_height="2dp"
             android:background="@color/color_main" />
 
-        <LinearLayout
+        <GridView 
+            android:id="@+id/share_item_container"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal"
             android:paddingLeft="8dp"
-            android:paddingRight="8dp" >
-
-            <LinearLayout
-                android:id="@+id/share_to_weixin"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical" >
-
-                <LinearLayout
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:background="@drawable/bg_round_green" >
-
-                    <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:maxHeight="70dp"
-                        android:maxWidth="70dp"
-                        android:scaleType="center"
-                        android:src="@drawable/ic_popup_share_weixin" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="微信"
-                    android:textColor="@color/color_text_gray"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/share_to_friend"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical" >
-
-                <LinearLayout
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:background="@drawable/bg_round_orange" >
-
-                    <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:maxHeight="70dp"
-                        android:maxWidth="70dp"
-                        android:scaleType="center"
-                        android:src="@drawable/ic_popup_share_pengyouquan" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:textColor="@color/color_text_gray"
-                    android:text="朋友圈"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/share_to_weibo"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical" >
-
-                <LinearLayout
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:background="@drawable/bg_round_red" >
-
-                    <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:maxHeight="70dp"
-                        android:maxWidth="70dp"
-                        android:scaleType="center"
-                        android:src="@drawable/ic_popup_share_sinaweibo" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="微博"
-                    android:textColor="@color/color_text_gray"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/share_copy_link"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical" >
-
-                <LinearLayout
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:background="@drawable/bg_round_blue" >
-
-                    <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:maxHeight="70dp"
-                        android:maxWidth="70dp"
-                        android:scaleType="center"
-                        android:src="@drawable/ic_popup_share_link" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="复制链接"
-                    android:textColor="@color/color_text_gray"
-                    android:textSize="14sp" />
-            </LinearLayout>
-        </LinearLayout>
-
+            android:paddingRight="8dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:numColumns="4"
+            android:verticalSpacing="4dp"
+            android:horizontalSpacing="10dp"
+            android:fadingEdge="none"
+            android:scrollbars="none"
+            android:background="@color/color_white"
+            android:clipToPadding="false"
+            android:listSelector="@color/color_white_trans"
+            />
+        
         <View
             android:layout_width="fill_parent"
             android:layout_height="1px"
@@ -192,4 +82,4 @@
         </LinearLayout>
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
