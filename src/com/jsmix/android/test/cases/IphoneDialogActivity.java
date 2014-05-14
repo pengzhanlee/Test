@@ -11,7 +11,7 @@ import android.view.View.OnClickListener;
 import com.jsmix.android.test.BaseCasesActivity;
 import com.jsmix.android.test.R;
 
-public class ShareActivity extends BaseCasesActivity {
+public class IphoneDialogActivity extends BaseCasesActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
