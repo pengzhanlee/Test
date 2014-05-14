@@ -25,6 +25,9 @@
         <activity
             android:name=".cases.KeyboradActivity"
             android:label="@string/label_keyboard" />
+        <activity
+            android:name=".cases.ShareActivity"
+            android:label="@string/label_share" />
     </application>
 
 </manifest>

@@ -3,5 +3,6 @@
 
     <string name="app_name">Test</string>
     <string name="label_keyboard">键盘强制调起</string>
+    <string name="label_share">分享</string>
 
 </resources>

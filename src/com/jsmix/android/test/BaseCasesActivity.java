@@ -8,15 +8,15 @@ import android.view.ViewGroup;
 
 public abstract class BaseCasesActivity extends Activity {
 
-	private ViewGroup container;
+	protected ViewGroup mContainer;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_case);
-		container = (ViewGroup) findViewById(R.id.container);
+		mContainer = (ViewGroup) findViewById(R.id.container);
 		
-		View view = LayoutInflater.from(this).inflate(getLayout(), container, true);
+		View view = LayoutInflater.from(this).inflate(getLayout(), mContainer, true);
 	}
 	
 	protected abstract int getLayout();
