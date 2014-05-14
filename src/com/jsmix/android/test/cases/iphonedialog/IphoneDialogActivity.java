@@ -27,13 +27,14 @@ public class IphoneDialogActivity extends BaseCasesActivity {
 	}
 
 	private ArrayList<ShareItem> shareItems = new ArrayList<IphoneDialogActivity.ShareItem>();
+	private Dialog dialog;
 	
 	{
 		// test code
 		shareItems.add(new ShareItem("wechat"));
-		shareItems.add(new ShareItem("link"));
 		shareItems.add(new ShareItem("moment"));
 		shareItems.add(new ShareItem("weibo"));
+		shareItems.add(new ShareItem("link"));
 	}
 	
 	@Override
@@ -101,7 +102,12 @@ public class IphoneDialogActivity extends BaseCasesActivity {
 	}
 
 	public void showDialog() {
-		final Dialog dialog = new Dialog(this, R.style.IphoneDialog);
+		if(dialog != null){
+			dialog.show();
+			return;
+		}
+		
+		dialog = new Dialog(this, R.style.IphoneDialog);
 		ViewGroup dialogView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.dialog_share, null);
 		GridView gridView = (GridView) dialogView.findViewById(R.id.share_item_container);
 		gridView.setAdapter(new GridViewAdapter());
@@ -130,6 +136,12 @@ public class IphoneDialogActivity extends BaseCasesActivity {
 		dialog.findViewById(R.id.mask).setOnClickListener(clickToDissmissListener);
 		dialog.findViewById(R.id.cancel).setOnClickListener(clickToDissmissListener);
 
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		dialog = null;
 	}
 	
 }
