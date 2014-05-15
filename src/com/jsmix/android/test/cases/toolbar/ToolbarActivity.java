@@ -1,13 +1,8 @@
 package com.jsmix.android.test.cases.toolbar;
 
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.PopupWindow;
 
 import com.jsmix.android.test.BaseCasesActivity;
 import com.jsmix.android.test.R;

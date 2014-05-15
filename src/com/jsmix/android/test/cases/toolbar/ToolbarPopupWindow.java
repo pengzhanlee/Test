@@ -47,8 +47,9 @@ public class ToolbarPopupWindow extends PopupWindow {
 
 		getContentView().measure(0, 0);
 		int h = getContentView().getMeasuredHeight();
+		int w = getContentView().getMeasuredWidth();
 		
-		int posX = mRect.left;
+		int posX = mRect.left - (w - view.getWidth()) / 2;
 		int posY = mRect.top - h;
 		
 		// 显示弹窗的位置
