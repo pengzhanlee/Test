@@ -4,5 +4,6 @@
     <string name="app_name">Test</string>
     <string name="label_keyboard">键盘强制调起</string>
     <string name="label_iphone_dialog">Iphone 弹出框</string>
+    <string name="label_toolbar">服务工具条</string>
 
 </resources>

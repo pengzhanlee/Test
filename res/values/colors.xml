@@ -54,4 +54,11 @@
 	<!-- sapi login & reg -->
 	<color name="color_sapi_option_dialog_text">#252525</color>
 	<color name="color_sapi_divide">#c2c2c2</color>
+	
+	<color name="toolbar_bg">#fff1f1f1</color>
+	<color name="toolbar_bg_focus">#ffe1e1e1</color>
+	<color name="toolbar_border_top">#ffb5b5b5</color>
+	<color name="toolbar_divider">#ffc0c0c0</color>
+	
+	
 </resources>

@@ -1,4 +1,4 @@
-package com.jsmix.android.test.cases;
+package com.jsmix.android.test.cases.keyboard;
 
 import android.content.Context;
 import android.graphics.Rect;
