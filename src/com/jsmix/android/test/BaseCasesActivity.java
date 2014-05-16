@@ -1,5 +1,6 @@
 package com.jsmix.android.test;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -11,9 +12,12 @@ public abstract class BaseCasesActivity extends ActionBarActivity {
 
 	protected ViewGroup mContainer;
 	
+	protected Context mContext;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		mContext = this;
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		setContentView(R.layout.activity_main_case);
 		mContainer = (ViewGroup) findViewById(R.id.container);

@@ -1,0 +1,31 @@
+[{
+	id : 0,
+	name : "账单",
+	secondary : [{
+		id : 1,
+		name : "二级菜单A"
+	}, {
+		id : 2,
+		name : "二级菜单B"
+	}]
+}, {
+	id : 1,
+	name : "我的",
+	secondary : [{
+		id : 1,
+		name : "二级菜单A"
+	}]
+}, {
+	id : 2,
+	name : "自助查询",
+	secondary : [{
+		id : 1,
+		name : "二级菜单A"
+	}, {
+		id : 2,
+		name : "二级菜单B"
+	}, {
+		id : 3,
+		name : "二级菜单C"
+	}]
+}]

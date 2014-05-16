@@ -29,32 +29,12 @@
             />
         
         <LinearLayout
+            android:id="@+id/menu_container"
             android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
 	        android:orientation="horizontal"
              >
-        
-			<include layout="@layout/toolbar_item" />
-			
-		    <View 
-				android:layout_width="1px"
-				android:layout_height="fill_parent"
-				android:background="@color/toolbar_divider"
-				android:layout_alignParentRight="true"
-				/>
-			
-			<include layout="@layout/toolbar_item" />
-		    
-		    <View 
-				android:layout_width="1px"
-				android:layout_height="fill_parent"
-				android:background="@color/toolbar_divider"
-				android:layout_alignParentRight="true"
-				/>
-		    
-			<include layout="@layout/toolbar_item" />
-            
-				   
+
         </LinearLayout>
         
     </LinearLayout>

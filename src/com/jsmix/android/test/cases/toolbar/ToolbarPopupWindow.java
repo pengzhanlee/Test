@@ -27,11 +27,11 @@ public class ToolbarPopupWindow extends PopupWindow {
 	public ToolbarPopupWindow(Context context) {
 		super(context);
 		this.mContext = context;
-		setFocusable(true);
+		setFocusable(false);
 		setTouchable(true);
 		setOutsideTouchable(true);
-		setAnimationStyle(R.style.AnimationToolbar);
 		
+		setAnimationStyle(R.style.AnimationToolbar);
 		setWidth(LayoutParams.WRAP_CONTENT);
 		setHeight(LayoutParams.WRAP_CONTENT);
 		setBackgroundDrawable(new BitmapDrawable());
@@ -52,8 +52,10 @@ public class ToolbarPopupWindow extends PopupWindow {
 		int posX = mRect.left - (w - view.getWidth()) / 2;
 		int posY = mRect.top - h;
 		
+		
 		// 显示弹窗的位置
 		showAtLocation(view, popupGravity, posX, posY);
+
 	}
 	
 }
