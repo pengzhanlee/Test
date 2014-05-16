@@ -31,7 +31,7 @@
     
     <style name="AnimationToolbar">
 		<item name="@android:windowEnterAnimation">@anim/toolbar_enter</item>
-		<item name="@android:windowExitAnimation">@anim/toobar_exit</item>
+		<item name="@android:windowExitAnimation">@anim/toolbar_exit</item>
 	</style>
     
 </resources>

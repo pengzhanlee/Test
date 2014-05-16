@@ -1,7 +1,7 @@
 [{
 	id : 0,
 	name : "账单",
-	secondary : [{
+	sub : [{
 		id : 1,
 		name : "二级菜单A"
 	}, {
@@ -11,14 +11,17 @@
 }, {
 	id : 1,
 	name : "我的",
-	secondary : [{
+	sub : [{
 		id : 1,
 		name : "二级菜单A"
 	}]
 }, {
 	id : 2,
-	name : "自助查询",
-	secondary : [{
+	name : "自助查询"
+}, {
+	id : 3,
+	name : "资讯",
+	sub : [{
 		id : 1,
 		name : "二级菜单A"
 	}, {

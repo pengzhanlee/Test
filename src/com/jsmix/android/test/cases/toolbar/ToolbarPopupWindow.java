@@ -7,12 +7,15 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import com.jsmix.android.test.R;
 
-public class ToolbarPopupWindow extends PopupWindow {
+public class ToolbarPopupWindow extends PopupWindow implements AnimationListener {
 
 	private Context mContext;
 
@@ -24,21 +27,31 @@ public class ToolbarPopupWindow extends PopupWindow {
 
 	LinearLayout mLinearLayout;
 
+	private Animation exitAnimation;
+
+	private Animation enterAnimation;
+	
+	@SuppressWarnings("deprecation")
 	public ToolbarPopupWindow(Context context) {
 		super(context);
 		this.mContext = context;
 		setFocusable(false);
 		setTouchable(true);
 		setOutsideTouchable(true);
-		
-		setAnimationStyle(R.style.AnimationToolbar);
 		setWidth(LayoutParams.WRAP_CONTENT);
 		setHeight(LayoutParams.WRAP_CONTENT);
 		setBackgroundDrawable(new BitmapDrawable());
 		mLinearLayout = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.toolbar_popup, null);
+		exitAnimation = AnimationUtils.loadAnimation(mContext, R.anim.toolbar_exit);
+		exitAnimation.setAnimationListener(this);
+		enterAnimation = AnimationUtils.loadAnimation(mContext, R.anim.toolbar_enter);
 	}
 
 	public void show(View view) {
+		if(isShowing()){
+			System.out.println("heh..");
+			super.dismiss();
+		}
 		view.getLocationOnScreen(mLocation);
 		mRect.set(mLocation[0], mLocation[1], mLocation[0] + view.getWidth(),
 				mLocation[1] + view.getHeight());
@@ -48,14 +61,34 @@ public class ToolbarPopupWindow extends PopupWindow {
 		getContentView().measure(0, 0);
 		int h = getContentView().getMeasuredHeight();
 		int w = getContentView().getMeasuredWidth();
-		
 		int posX = mRect.left - (w - view.getWidth()) / 2;
 		int posY = mRect.top - h;
 		
 		
 		// 显示弹窗的位置
 		showAtLocation(view, popupGravity, posX, posY);
+		
+		mLinearLayout.startAnimation(enterAnimation);
+	}
+	
+	@Override
+	public void dismiss() {
+		mLinearLayout.startAnimation(exitAnimation);
+	}
 
+	@Override
+	public void onAnimationStart(Animation animation) {
+		
+	}
+
+	@Override
+	public void onAnimationEnd(Animation animation) {
+		super.dismiss();
+	}
+
+	@Override
+	public void onAnimationRepeat(Animation animation) {
+		
 	}
 	
 }

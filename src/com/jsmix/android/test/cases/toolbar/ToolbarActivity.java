@@ -10,10 +10,8 @@ import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
@@ -26,21 +24,23 @@ public class ToolbarActivity extends BaseCasesActivity implements OnClickListene
 	public static final String KEY_NAME = "name";
 
 	public static final String KEY_ID = "id";
+
+	public static final String KEY_SUB_MENU = "sub";
 	
-	private int mShowingMenuId = -1;
+	private int mShowingMenuIndex = -1;
 	
-	private JSONArray menus;
+	private JSONArray mMenus;
 	
-	private ViewGroup menuContainer;
+	private ViewGroup mMenuContainer;
 	
-	private ToolbarPopupWindow subMenu;
+	private ToolbarPopupWindow mSubMenu;
 	
 	private void setTestData(){
 		InputStream is = null;
 		try {
 			is = getAssets().open("a.json");
 			String testJson = IOUtils.toString(is, "UTF-8");
-			menus = new JSONArray(testJson);
+			mMenus = new JSONArray(testJson);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -58,7 +58,7 @@ public class ToolbarActivity extends BaseCasesActivity implements OnClickListene
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		menuContainer = (ViewGroup) findViewById(R.id.menu_container);
+		mMenuContainer = (ViewGroup) findViewById(R.id.menu_container);
 		setTestData();
 		
 		inflateMenu();
@@ -66,16 +66,22 @@ public class ToolbarActivity extends BaseCasesActivity implements OnClickListene
 	
 	private void inflateMenu() {
 		try {
-			for(int i = 0; i < menus.length(); i++){
-				JSONObject menu = menus.getJSONObject(i);
-				View menuView = LayoutInflater.from(mContext).inflate(R.layout.toolbar_item, menuContainer, false);
-				menuView.setTag(i);
-				menuContainer.addView(menuView);
+			for(int index = 0; index < mMenus.length(); index++){
+				JSONObject menu = mMenus.getJSONObject(index);
+				View menuView = LayoutInflater.from(mContext).inflate(R.layout.toolbar_item, mMenuContainer, false);
+				menuView.setTag(index);
+				mMenuContainer.addView(menuView);
 				
 				// add divider
-				if(i != menus.length() - 1){
-					View divider = LayoutInflater.from(mContext).inflate(R.layout.toolbar_divider, menuContainer, false);
-					menuContainer.addView(divider);
+				if(index != mMenus.length() - 1){
+					View divider = LayoutInflater.from(mContext).inflate(R.layout.toolbar_divider, mMenuContainer, false);
+					mMenuContainer.addView(divider);
+				}
+				
+				// 子菜单
+				JSONArray subMenu = menu.optJSONArray(KEY_SUB_MENU);
+				if(subMenu == null || subMenu.length() < 1){
+					menuView.findViewById(R.id.ic_sub_menu).setVisibility(View.GONE);;
 				}
 				
 				TextView title = (TextView) menuView.findViewById(R.id.title);
@@ -88,14 +94,19 @@ public class ToolbarActivity extends BaseCasesActivity implements OnClickListene
 		}
 	}
 	
-	protected void showToolbarMenu(View anchor, int id) {
-		if(id < 0){
+	protected void showToolbarMenu(View anchor, int index, JSONArray subMenuArray) {
+		if(index < 0){
 			return;
 		}
 		
-		if(subMenu == null){
-			subMenu = new ToolbarPopupWindow(this);
-			subMenu.setOnDismissListener(new OnDismissListener() {
+		if(subMenuArray == null || subMenuArray.length() < 1){
+			// TODO: trigger main menu
+			return;
+		}
+		
+		if(mSubMenu == null){
+			mSubMenu = new ToolbarPopupWindow(this);
+			mSubMenu.setOnDismissListener(new OnDismissListener() {
 				
 				@Override
 				public void onDismiss() {
@@ -107,20 +118,20 @@ public class ToolbarActivity extends BaseCasesActivity implements OnClickListene
 				
 				@Override
 				public void onClick(View v) {
-					mShowingMenuId = -1;
+					mShowingMenuIndex = -1;
 				}
 			});
 
 		}
 		
 		// 当前正在显示
-		if(id == mShowingMenuId){
-			mShowingMenuId = -1;
+		if(index == mShowingMenuIndex){
+			mShowingMenuIndex = -1;
 			return;
 		}
 		
-		subMenu.show(anchor);
-		mShowingMenuId = id;
+		mSubMenu.show(anchor);
+		mShowingMenuIndex = index;
 	}
 
 	@Override
@@ -132,10 +143,9 @@ public class ToolbarActivity extends BaseCasesActivity implements OnClickListene
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.menu:
-			int id = (Integer) v.getTag();
-			System.out.println("click ... id: " +id);
-			
-			showToolbarMenu(v, id);
+			int index = (Integer) v.getTag();
+			JSONArray subMenu = mMenus.optJSONObject(index).optJSONArray(KEY_SUB_MENU);
+			showToolbarMenu(v, index, subMenu);
 			break;
 
 		default:
