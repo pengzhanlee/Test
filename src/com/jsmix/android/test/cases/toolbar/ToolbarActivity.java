@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
 import com.jsmix.android.test.BaseCasesActivity;
