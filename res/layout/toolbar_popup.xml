@@ -1,26 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#6600FF00"
-    android:padding="20dp"
-    android:orientation="vertical" >
-
-    <TextView 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="狂送1000积分"
-        />
-    <TextView 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="hehe"
-        />
-    <TextView 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="账单分期"
-        />
-
-
-</LinearLayout>
+    android:background="@drawable/bg_toolbar_popup"
+    android:paddingTop="1px"
+    android:paddingLeft="1px"
+    android:paddingRight="1px"
+    android:paddingBottom="1px"
+    android:divider="@color/toolbar_divider"
+    android:dividerHeight="1px"
+    android:fadingEdge="none" />

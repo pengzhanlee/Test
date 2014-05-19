@@ -18,8 +18,9 @@ import android.widget.TextView;
 
 import com.jsmix.android.test.BaseCasesActivity;
 import com.jsmix.android.test.R;
+import com.jsmix.android.test.cases.toolbar.ToolbarPopupWindow.OnSubMenuSelectedListener;
 
-public class ToolbarActivity extends BaseCasesActivity implements OnClickListener {
+public class ToolbarActivity extends BaseCasesActivity implements OnClickListener, OnSubMenuSelectedListener {
 
 	public static final String KEY_NAME = "name";
 
@@ -65,33 +66,35 @@ public class ToolbarActivity extends BaseCasesActivity implements OnClickListene
 	}
 	
 	private void inflateMenu() {
-		try {
-			for(int index = 0; index < mMenus.length(); index++){
-				JSONObject menu = mMenus.getJSONObject(index);
-				View menuView = LayoutInflater.from(mContext).inflate(R.layout.toolbar_item, mMenuContainer, false);
-				menuView.setTag(index);
-				mMenuContainer.addView(menuView);
-				
-				// add divider
-				if(index != mMenus.length() - 1){
-					View divider = LayoutInflater.from(mContext).inflate(R.layout.toolbar_divider, mMenuContainer, false);
-					mMenuContainer.addView(divider);
-				}
-				
-				// 子菜单
-				JSONArray subMenu = menu.optJSONArray(KEY_SUB_MENU);
-				if(subMenu == null || subMenu.length() < 1){
-					menuView.findViewById(R.id.ic_sub_menu).setVisibility(View.GONE);;
-				}
-				
-				TextView title = (TextView) menuView.findViewById(R.id.title);
-				title.setText(menu.optString(KEY_NAME));
-				
-				menuView.setOnClickListener(this);
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
+		if(mMenus == null){
+			// json parse error
+			return ;
 		}
+		for(int index = 0; index < mMenus.length(); index++){
+			JSONObject menu = mMenus.optJSONObject(index);
+			if(menu == null) continue;
+			View menuView = LayoutInflater.from(mContext).inflate(R.layout.toolbar_item, mContainer, false);
+			menuView.setTag(index);
+			mMenuContainer.addView(menuView);
+			
+			// add divider
+			if(index != mMenus.length() - 1){
+				View divider = LayoutInflater.from(mContext).inflate(R.layout.toolbar_divider, mMenuContainer, false);
+				mMenuContainer.addView(divider);
+			}
+			
+			// 子菜单标记
+			JSONArray subMenu = menu.optJSONArray(KEY_SUB_MENU);
+			if(subMenu == null || subMenu.length() < 1){
+				menuView.findViewById(R.id.ic_sub_menu).setVisibility(View.GONE);;
+			}
+			
+			TextView title = (TextView) menuView.findViewById(R.id.title);
+			title.setText(menu.optString(KEY_NAME));
+			
+			menuView.setOnClickListener(this);
+		}
+
 	}
 	
 	protected void showToolbarMenu(View anchor, int index, JSONArray subMenuArray) {
@@ -100,19 +103,14 @@ public class ToolbarActivity extends BaseCasesActivity implements OnClickListene
 		}
 		
 		if(subMenuArray == null || subMenuArray.length() < 1){
-			// TODO: trigger main menu
+			mShowingMenuIndex = index;
+			onSelected(null, null);
 			return;
 		}
 		
 		if(mSubMenu == null){
 			mSubMenu = new ToolbarPopupWindow(this);
-			mSubMenu.setOnDismissListener(new OnDismissListener() {
-				
-				@Override
-				public void onDismiss() {
-					System.out.println("dismiss");
-				}
-			});
+			mSubMenu.setOnSubMenuSelectedListener(this);
 			
 			mContainer.setOnClickListener(new OnClickListener() {
 				
@@ -130,7 +128,7 @@ public class ToolbarActivity extends BaseCasesActivity implements OnClickListene
 			return;
 		}
 		
-		mSubMenu.show(anchor);
+		mSubMenu.show(subMenuArray, anchor);
 		mShowingMenuIndex = index;
 	}
 
@@ -144,13 +142,30 @@ public class ToolbarActivity extends BaseCasesActivity implements OnClickListene
 		switch (v.getId()) {
 		case R.id.menu:
 			int index = (Integer) v.getTag();
-			JSONArray subMenu = mMenus.optJSONObject(index).optJSONArray(KEY_SUB_MENU);
+			JSONArray subMenu = null;
+
+			JSONObject menu = mMenus.optJSONObject(index);
+			if(menu != null){
+				subMenu = menu.optJSONArray(KEY_SUB_MENU);
+			}
+
 			showToolbarMenu(v, index, subMenu);
 			break;
 
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public void onSelected(String subId, String subName) {
+		JSONObject menu = mMenus.optJSONObject(mShowingMenuIndex);
+		if(menu != null){
+			String mainId = menu.optString(KEY_ID);
+			String mainName = menu.optString(KEY_NAME);
+			System.out.println("selected: " + mainId + "." + mainName + "->" + subId + "." + subName);
+		}
+		mShowingMenuIndex = -1;
 	}
 
 }
