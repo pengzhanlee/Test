@@ -104,7 +104,13 @@ public class ToolbarPopupWindow extends PopupWindow implements AnimationListener
 
 	@Override
 	public void onAnimationEnd(Animation animation) {
-		super.dismiss();
+		mListView.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				ToolbarPopupWindow.super.dismiss();
+			}
+		});
 	}
 
 	@Override

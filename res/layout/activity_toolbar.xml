@@ -5,14 +5,25 @@
     android:orientation="vertical"
      >
 	
-    <TextView 
+    <TextSwitcher 
         android:id="@+id/test"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_centerInParent="true"
         android:background="@color/color_main"
         android:padding="10dp"
-        android:text="test"
+        />
+    
+    <Button 
+        android:id="@+id/json_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/test"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="view json"
         />
     
     <LinearLayout 
